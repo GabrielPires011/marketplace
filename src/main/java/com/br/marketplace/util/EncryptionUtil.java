@@ -31,7 +31,7 @@ public class EncryptionUtil {
         }
     }
 
-    public static String encrypt(String data) {
+    public static String encrypt(Object data) {
         Cipher cipher = null;
         try {
             cipher = Cipher.getInstance(ALGORITHM);
@@ -49,7 +49,7 @@ public class EncryptionUtil {
         }
 
         try {
-            return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes()));
+            return Base64.getEncoder().encodeToString(cipher.doFinal(data.toString().getBytes()));
         } catch (IllegalBlockSizeException e) {
             throw new ValidacaoException("Tamanho do bloco inválido durante a criptografia: " + e.getMessage());
         } catch (BadPaddingException e) {

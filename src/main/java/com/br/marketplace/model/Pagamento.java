@@ -1,5 +1,7 @@
 package com.br.marketplace.model;
 
+import com.br.marketplace.model.enums.FormaPagamento;
+import com.br.marketplace.model.enums.Status;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

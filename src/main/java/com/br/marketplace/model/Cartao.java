@@ -1,6 +1,11 @@
 package com.br.marketplace.model;
 
-import jakarta.persistence.*;
+import com.br.marketplace.dto.cadastrar.CadastrarCartaoDto;
+import com.br.marketplace.model.enums.Bandeira;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import java.util.UUID;
 
@@ -18,29 +23,37 @@ public class Cartao {
     private String encryptedNumero;
     private String encryptedExpiracao;
     private String encryptedCodigo;
+    private String encryptedBandeira;
 
     @Transient
     private String decryptedNome;
     @Transient
-    private String decryptedNumero;
+    private Integer decryptedNumero;
     @Transient
     private String decryptedExpiracao;
     @Transient
-    private String decryptedCodigo;
+    private Integer decryptedCodigo;
+    @Transient
+    private Bandeira decryptedBandeira;
 
-    @PrePersist
-    public void encryptData() {
-        this.encryptedNome = encrypt(this.decryptedNome);
-        this.encryptedNumero = encrypt(this.decryptedNumero);
-        this.encryptedExpiracao = encrypt(this.decryptedExpiracao);
-        this.encryptedCodigo = encrypt(this.decryptedCodigo);
-    }
-
-    @PostLoad
     public void decryptData() {
         this.decryptedNome = decrypt(this.encryptedNome);
-        this.decryptedNumero = decrypt(this.encryptedNumero);
+        this.decryptedNumero = Integer.valueOf(decrypt(this.encryptedNumero));
         this.decryptedExpiracao = decrypt(this.encryptedExpiracao);
-        this.decryptedCodigo = decrypt(this.encryptedCodigo);
+        this.decryptedCodigo = Integer.valueOf(decrypt(this.encryptedCodigo));
+        this.decryptedBandeira = Bandeira.valueOf(decrypt(this.encryptedBandeira));
     }
+
+    public Cartao (){}
+
+    public Cartao(CadastrarCartaoDto dto) {
+        this.id = UUID.randomUUID();
+        this.encryptedNome = encrypt(dto.nome());
+        this.encryptedNumero = encrypt(dto.numero());
+        this.encryptedExpiracao = encrypt(dto.expiracao());
+        this.encryptedCodigo = encrypt(dto.codigo());
+        this.encryptedBandeira = encrypt(dto.bandeira());
+    }
+
+
 }

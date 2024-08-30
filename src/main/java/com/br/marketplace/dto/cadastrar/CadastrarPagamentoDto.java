@@ -1,7 +1,7 @@
 package com.br.marketplace.dto.cadastrar;
 
-import com.br.marketplace.model.FormaPagamento;
-import com.br.marketplace.model.Status;
+import com.br.marketplace.model.enums.FormaPagamento;
+import com.br.marketplace.model.enums.Status;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
