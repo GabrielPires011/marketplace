@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 
+import static com.br.marketplace.util.EncryptionUtil.decrypt;
+import static com.br.marketplace.util.EncryptionUtil.encrypt;
+
 @Entity
 @Table(name = "cartoes")
 public class Cartao {
@@ -26,7 +29,7 @@ public class Cartao {
     private String decryptedCodigo;
 
     @PrePersist
-    public void encryptData() throws Exception {
+    public void encryptData() {
         this.encryptedNome = encrypt(this.decryptedNome);
         this.encryptedNumero = encrypt(this.decryptedNumero);
         this.encryptedExpiracao = encrypt(this.decryptedExpiracao);
@@ -34,7 +37,7 @@ public class Cartao {
     }
 
     @PostLoad
-    public void decryptData() throws Exception {
+    public void decryptData() {
         this.decryptedNome = decrypt(this.encryptedNome);
         this.decryptedNumero = decrypt(this.encryptedNumero);
         this.decryptedExpiracao = decrypt(this.encryptedExpiracao);
