@@ -1,6 +1,6 @@
 package com.br.marketplace.model;
 
-import com.br.marketplace.dto.cadastrar.CadastrarCartaoDto;
+import com.br.marketplace.dto.salvar.SalvarCartaoDto;
 import com.br.marketplace.model.enums.Bandeira;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -46,7 +46,7 @@ public class Cartao {
 
     public Cartao (){}
 
-    public Cartao(CadastrarCartaoDto dto) {
+    public Cartao(SalvarCartaoDto dto) {
         this.id = UUID.randomUUID();
         this.encryptedNome = encrypt(dto.nome());
         this.encryptedNumero = encrypt(dto.numero());
@@ -54,6 +54,4 @@ public class Cartao {
         this.encryptedCodigo = encrypt(dto.codigo());
         this.encryptedBandeira = encrypt(dto.bandeira());
     }
-
-
 }

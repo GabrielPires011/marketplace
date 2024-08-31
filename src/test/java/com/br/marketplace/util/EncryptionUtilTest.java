@@ -15,7 +15,7 @@ class EncryptionUtilTest {
     }
 
     @Test
-    void testarCriptografiaEDescriptografia() throws Exception {
+    void testarCriptografiaEDescriptografia() {
         String textoOriginal = "TextoTeste1234";
 
         String textoCriptografado = EncryptionUtil.encrypt(textoOriginal);
