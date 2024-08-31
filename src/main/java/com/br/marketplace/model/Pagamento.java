@@ -33,4 +33,20 @@ public class Pagamento {
         this.cartao = new Cartao(dto.salvarCartaoDto());
         this.formaPagamento = dto.formaDePagamento();
     }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
 }

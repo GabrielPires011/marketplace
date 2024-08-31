@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class PagamentoController {
 
     @Autowired
-    private PagamentoService pagamentoService;
+    private PagamentoService service;
 
     @PostMapping
     public ResponseEntity<Void> salvar(@Valid SalvarPagamentoDto dto) {
         try {
-            pagamentoService.salvar(dto);
+            service.salvar(dto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

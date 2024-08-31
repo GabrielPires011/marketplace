@@ -20,12 +20,12 @@ public class EncryptionUtil {
     private static final String ALGORITHM = "AES";
     private static byte[] key;
 
-    @Value("${encryption.key}")
-    private String encryptionKey;
+    @Value("${chave.encryption}")
+    private String CHAVE_ENCRYPTION;
 
     @PostConstruct
     public void init() {
-        key = encryptionKey.getBytes();
+        key = CHAVE_ENCRYPTION.getBytes();
         if (key.length != 16) {
             throw new IllegalArgumentException("Chave de criptografia inválida. A chave deve ter 16 bytes de comprimento.");
         }

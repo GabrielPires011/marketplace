@@ -7,10 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public record SalvarPagamentoDto(@NotNull @Positive BigDecimal valor,
                                  @NotNull Status status,
                                  @NotNull String descricao,
                                  @NotNull FormaPagamento formaDePagamento,
-                                 @Valid SalvarCartaoDto salvarCartaoDto) {
+                                 @Valid SalvarCartaoDto salvarCartaoDto,
+                                 @NotNull UUID idUsuario) {
 }

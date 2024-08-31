@@ -1,12 +1,11 @@
 package com.br.marketplace.model;
 
 import com.br.marketplace.dto.salvar.SalvarCartaoDto;
-import com.br.marketplace.model.enums.Bandeira;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
+import java.util.Map;
 import java.util.UUID;
 
 import static com.br.marketplace.util.EncryptionUtil.decrypt;
@@ -18,30 +17,18 @@ public class Cartao {
 
     @Id
     private UUID id;
-
     private String encryptedNome;
     private String encryptedNumero;
     private String encryptedExpiracao;
     private String encryptedCodigo;
     private String encryptedBandeira;
 
-    @Transient
-    private String decryptedNome;
-    @Transient
-    private Integer decryptedNumero;
-    @Transient
-    private String decryptedExpiracao;
-    @Transient
-    private Integer decryptedCodigo;
-    @Transient
-    private Bandeira decryptedBandeira;
-
-    public void decryptData() {
-        this.decryptedNome = decrypt(this.encryptedNome);
-        this.decryptedNumero = Integer.valueOf(decrypt(this.encryptedNumero));
-        this.decryptedExpiracao = decrypt(this.encryptedExpiracao);
-        this.decryptedCodigo = Integer.valueOf(decrypt(this.encryptedCodigo));
-        this.decryptedBandeira = Bandeira.valueOf(decrypt(this.encryptedBandeira));
+    public void decryptData(Map<String, String> creditCard) {
+        creditCard.put("CardNumber", decrypt(this.encryptedNumero));
+        creditCard.put("Holder", decrypt(this.encryptedNome));
+        creditCard.put("ExpirationDate", decrypt(this.encryptedExpiracao));
+        creditCard.put("SecurityCode", decrypt(this.encryptedCodigo));
+        creditCard.put("Brand", decrypt(this.encryptedBandeira));
     }
 
     public Cartao (){}
