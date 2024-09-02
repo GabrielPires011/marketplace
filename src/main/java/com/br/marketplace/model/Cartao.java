@@ -1,6 +1,6 @@
 package com.br.marketplace.model;
 
-import com.br.marketplace.dto.salvar.SalvarCartaoDto;
+import com.br.marketplace.dto.CriarCartaoDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -33,7 +33,7 @@ public class Cartao {
 
     public Cartao (){}
 
-    public Cartao(SalvarCartaoDto dto) {
+    public Cartao(CriarCartaoDto dto) {
         this.id = UUID.randomUUID();
         this.encryptedNome = encrypt(dto.nome());
         this.encryptedNumero = encrypt(dto.numero());

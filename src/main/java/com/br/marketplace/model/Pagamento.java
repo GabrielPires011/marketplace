@@ -1,6 +1,6 @@
 package com.br.marketplace.model;
 
-import com.br.marketplace.dto.salvar.SalvarPagamentoDto;
+import com.br.marketplace.dto.CriarPagamentoDto;
 import com.br.marketplace.model.enums.FormaPagamento;
 import com.br.marketplace.model.enums.Status;
 import jakarta.persistence.*;
@@ -25,12 +25,12 @@ public class Pagamento {
 
     public Pagamento() {}
 
-    public Pagamento(SalvarPagamentoDto dto) {
+    public Pagamento(CriarPagamentoDto dto) {
         this.id = UUID.randomUUID();
         this.valor = dto.valor();
-        this.status = dto.status();
+        this.status = Status.CRIADO;
         this.descricao = dto.descricao();
-        this.cartao = new Cartao(dto.salvarCartaoDto());
+        this.cartao = new Cartao(dto.criarCartaoDto());
         this.formaPagamento = dto.formaDePagamento();
     }
 

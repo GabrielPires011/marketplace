@@ -1,4 +1,4 @@
-package com.br.marketplace.dto.dados.detalhados;
+package com.br.marketplace.dto;
 
 import com.br.marketplace.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;

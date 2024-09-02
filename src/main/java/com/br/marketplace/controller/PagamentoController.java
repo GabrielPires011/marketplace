@@ -1,6 +1,6 @@
 package com.br.marketplace.controller;
 
-import com.br.marketplace.dto.salvar.SalvarPagamentoDto;
+import com.br.marketplace.dto.CriarPagamentoDto;
 import com.br.marketplace.service.PagamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,8 @@ public class PagamentoController {
     private PagamentoService service;
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@Valid SalvarPagamentoDto dto) {
-        try {
-            service.salvar(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<Void> criar(@Valid CriarPagamentoDto dto) {
+        service.criar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
