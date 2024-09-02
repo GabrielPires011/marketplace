@@ -3,7 +3,6 @@ package com.br.marketplace.model;
 import com.br.marketplace.dto.CriarCartaoDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 import java.util.Map;
 import java.util.UUID;
@@ -12,7 +11,6 @@ import static com.br.marketplace.util.EncryptionUtil.decrypt;
 import static com.br.marketplace.util.EncryptionUtil.encrypt;
 
 @Entity
-@Table(name = "cartoes")
 public class Cartao {
 
     @Id
