@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.br.marketplace.util.CapturaBandeiraCartaoUtil.capturarBandeira;
 import static com.br.marketplace.util.EncryptionUtil.decrypt;
 import static com.br.marketplace.util.EncryptionUtil.encrypt;
 
@@ -37,6 +38,6 @@ public class Cartao {
         this.encryptedNumero = encrypt(dto.numero());
         this.encryptedExpiracao = encrypt(dto.expiracao());
         this.encryptedCodigo = encrypt(dto.codigo());
-        this.encryptedBandeira = encrypt(dto.bandeira());
+        this.encryptedBandeira = encrypt(capturarBandeira(String.valueOf(dto.numero())));
     }
 }
