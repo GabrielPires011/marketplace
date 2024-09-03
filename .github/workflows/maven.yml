@@ -52,5 +52,6 @@ jobs:
         run: |
           echo "Deploying to Heroku..."
           curl https://cli-assets.heroku.com/install.sh | sh
-          heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku auth:token
+          git remote add heroku https://git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
           git push heroku master
