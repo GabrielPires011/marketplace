@@ -50,12 +50,16 @@ public class Pagamento {
         return formaPagamento;
     }
 
-    public void concluido() {
+    public void concluir() {
         this.status = Status.CONCLUIDO;
     }
 
-    public void recusado() {
+    public void recusar() {
         this.status = Status.RECUSADO;
+    }
+
+    public void cancelar() {
+        this.status = Status.CANCELADO;
     }
 
     public Pagamento(UUID id, BigDecimal valor, Status status, String descricao, Cartao cartao, FormaPagamento formaPagamento) {

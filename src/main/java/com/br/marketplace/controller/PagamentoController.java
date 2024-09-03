@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/pagamento")
@@ -27,5 +28,11 @@ public class PagamentoController {
     @GetMapping("lista")
     public ResponseEntity<List<DadosDetalhadosPagamentoDto>> listar() {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarDadosDetalhadosPagamentoDto());
+    }
+
+    @PutMapping("cancela/{id}")
+    public ResponseEntity<Void> cancelar(@PathVariable UUID id) {
+        service.cancelar(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
