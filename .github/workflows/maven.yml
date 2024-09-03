@@ -21,14 +21,6 @@ jobs:
         ports:
           - 3306:3306
 
-    env:
-      DATASOURCE_IP: localhost
-      DATASOURCE_USERNAME: root
-      DATASOURCE_PASSWORD: root
-      ENCRYPTION_KEY: 1234567890123456
-      CHAVE_JWT: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
-      ALLOWED_ORIGINS: http://localhost:4200
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
