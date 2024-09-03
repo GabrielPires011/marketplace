@@ -34,6 +34,27 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
+      - name: Run application
+        run: |
+          mvn spring-boot:run &
+          sleep 30 # Give the application some time to start
+
+      - name: Install ngrok
+        run: |
+          curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo apt-key add -
+          echo "deb https://ngrok-agent.s3.amazonaws.com/ stable main" | sudo tee /etc/apt/sources.list.d/ngrok.list
+          sudo apt update
+          sudo apt install ngrok
+
+      - name: Expose application with ngrok
+        run: |
+          nohup ngrok http 8080 > /dev/null &
+          sleep 10 # Give ngrok some time to start
+
+      - name: Get ngrok URL
+        run: |
+          curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
+
       - name: Run tests
         run: mvn test
 
