@@ -30,7 +30,6 @@ public class Cartao {
         creditCard.put("Holder", decrypt(this.encryptedNome));
         creditCard.put("ExpirationDate", decrypt(this.encryptedExpiracao));
         creditCard.put("SecurityCode", decrypt(this.encryptedCodigo));
-        creditCard.put("Brand", decrypt(this.encryptedBandeira));
     }
 
     public Cartao (){}

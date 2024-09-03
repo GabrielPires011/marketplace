@@ -28,7 +28,7 @@ public class Pagamento {
 
     public Pagamento(CriarPagamentoDto dto) {
         this.valor = dto.valor();
-        this.status = Status.CRIADO;
+        this.status = Status.PENDENTE;
         this.descricao = dto.descricao();
         this.cartao = new Cartao(dto.criarCartaoDto());
         this.formaPagamento = dto.formaDePagamento();
@@ -48,5 +48,22 @@ public class Pagamento {
 
     public FormaPagamento getFormaPagamento() {
         return formaPagamento;
+    }
+
+    public void concluido() {
+        this.status = Status.CONCLUIDO;
+    }
+
+    public void recusado() {
+        this.status = Status.RECUSADO;
+    }
+
+    public Pagamento(UUID id, BigDecimal valor, Status status, String descricao, Cartao cartao, FormaPagamento formaPagamento) {
+        this.id = id;
+        this.valor = valor;
+        this.status = status;
+        this.descricao = descricao;
+        this.cartao = cartao;
+        this.formaPagamento = formaPagamento;
     }
 }

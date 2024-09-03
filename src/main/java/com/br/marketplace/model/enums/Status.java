@@ -1,7 +1,8 @@
 package com.br.marketplace.model.enums;
 
 public enum Status {
-    CRIADO,
-    CONFIRMADO,
+    PENDENTE,
+    CONCLUIDO,
+    RECUSADO,
     CANCELADO
 }
