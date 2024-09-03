@@ -44,24 +44,3 @@ jobs:
 
       - name: Verify application
         run: mvn verify
-
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Login to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          echo "${{ secrets.HEROKU_API_KEY }}" | heroku auth:token
-
-      - name: Set up Heroku remote
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: |
-          git remote remove heroku || true
-          heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
-
-      - name: Deploy to Heroku
-        run: |
-          git push heroku master
