@@ -2,7 +2,6 @@ package com.br.marketplace.configuration;
 
 import com.br.marketplace.filter.JwtRequestFilter;
 import com.br.marketplace.service.UsuarioDetalhadoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +37,11 @@ SecurityConfig {
     @Value("${allowed.origins}")
     private String allowedOrigins;
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+    private final JwtRequestFilter jwtRequestFilter;
+
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
