@@ -9,8 +9,8 @@ public record CriarCartaoDto(
         String nome,
 
         @NotBlank(message = "O número não pode estar em branco.")
-        @Size(min = 19, max = 19, message = "O número deve ter 19 dígitos.")
-        Long numero,
+        @Size(min = 16, max = 16, message = "O número deve ter 16 dígitos.")
+        String numero,
 
         @NotBlank(message = "A data de expiração não pode estar em branco.")
         @Size(min = 7, max = 7, message = "A data de expiração deve ter 7 caracteres.")
@@ -18,6 +18,6 @@ public record CriarCartaoDto(
 
         @NotBlank(message = "O código não pode estar em branco.")
         @Size(min = 3, max = 3, message = "O código deve ter 3 dígitos.")
-        Integer codigo) {
+        String codigo) {
 }
 

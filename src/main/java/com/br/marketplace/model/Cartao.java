@@ -2,6 +2,8 @@ package com.br.marketplace.model;
 
 import com.br.marketplace.dto.CriarCartaoDto;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.Map;
@@ -15,6 +17,7 @@ import static com.br.marketplace.util.EncryptionUtil.encrypt;
 public class Cartao {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String encryptedNome;
     private String encryptedNumero;
@@ -33,7 +36,6 @@ public class Cartao {
     public Cartao (){}
 
     public Cartao(CriarCartaoDto dto) {
-        this.id = UUID.randomUUID();
         this.encryptedNome = encrypt(dto.nome());
         this.encryptedNumero = encrypt(dto.numero());
         this.encryptedExpiracao = encrypt(dto.expiracao());

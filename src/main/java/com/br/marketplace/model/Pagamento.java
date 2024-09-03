@@ -12,12 +12,14 @@ import java.util.UUID;
 public class Pagamento {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private BigDecimal valor;
     @Enumerated(EnumType.STRING)
     private Status status;
     private String descricao;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "cartao_id")
     private Cartao cartao;
     @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
@@ -25,7 +27,6 @@ public class Pagamento {
     public Pagamento() {}
 
     public Pagamento(CriarPagamentoDto dto) {
-        this.id = UUID.randomUUID();
         this.valor = dto.valor();
         this.status = Status.CRIADO;
         this.descricao = dto.descricao();
