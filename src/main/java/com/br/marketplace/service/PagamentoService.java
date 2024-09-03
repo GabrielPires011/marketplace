@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class PagamentoService {
     @Autowired
     private CieloPagamentoServico cieloPagamentoServico;
 
+    @Transient
     public void criar(CriarPagamentoDto dto) {
         repository.save(new Pagamento(dto));
     }
@@ -30,6 +32,7 @@ public class PagamentoService {
     }
 
     @Async
+    @Transient
     public void processarPagamentosPendentes() {
         List<Pagamento> vendasPendentes = repository.buscarPagamentosPendentes();
         for (Pagamento pagamento : vendasPendentes) {
@@ -46,6 +49,7 @@ public class PagamentoService {
         }
     }
 
+    @Transient
     public void cancelar(UUID id) {
         var pagamento = repository.findById(id)
                 .orElseThrow(() -> new ValidacaoException(
