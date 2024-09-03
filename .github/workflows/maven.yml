@@ -41,10 +41,10 @@ jobs:
 
       - name: Install ngrok
         run: |
-          curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo apt-key add -
-          echo "deb https://ngrok-agent.s3.amazonaws.com/ stable main" | sudo tee /etc/apt/sources.list.d/ngrok.list
+          curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --dearmor -o /usr/share/keyrings/ngrok-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/ngrok-archive-keyring.gpg] https://ngrok-agent.s3.amazonaws.com/ stable main" | sudo tee /etc/apt/sources.list.d/ngrok.list
           sudo apt update
-          sudo apt install ngrok
+          sudo apt install -y ngrok
 
       - name: Expose application with ngrok
         run: |
