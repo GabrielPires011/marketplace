@@ -39,21 +39,18 @@ jobs:
           mvn spring-boot:run &
           sleep 30 # Give the application some time to start
 
-      - name: Install ngrok
-        run: |
-          curl -s https://ngrok.com/download | tar xz -C /usr/local/bin
-
-      - name: Expose application with ngrok
-        run: |
-          nohup ngrok http 8080 > /dev/null &
-          sleep 10 # Give ngrok some time to start
-
-      - name: Get ngrok URL
-        run: |
-          curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
-
       - name: Run tests
         run: mvn test
 
       - name: Verify application
         run: mvn verify
+
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+        run: |
+          echo "Deploying to Heroku..."
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
+          git push heroku master
