@@ -1,5 +1,6 @@
 package com.br.marketplace.service;
 
+import com.br.marketplace.dto.CancelarPagamentoDto;
 import com.br.marketplace.dto.CriarPagamentoDto;
 import com.br.marketplace.dto.DadosDetalhadosPagamentoDto;
 import com.br.marketplace.exception.ValidacaoException;
@@ -50,8 +51,8 @@ public class PagamentoService {
     }
 
     @Transient
-    public void cancelar(UUID id) {
-        var pagamento = repository.findById(id)
+    public void cancelar(CancelarPagamentoDto dto) {
+        var pagamento = repository.findById(dto.id())
                 .orElseThrow(() -> new ValidacaoException(
                         "Pagamento não encontrada."));
 

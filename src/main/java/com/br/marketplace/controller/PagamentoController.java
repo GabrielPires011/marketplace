@@ -1,5 +1,6 @@
 package com.br.marketplace.controller;
 
+import com.br.marketplace.dto.CancelarPagamentoDto;
 import com.br.marketplace.dto.CriarPagamentoDto;
 import com.br.marketplace.dto.DadosDetalhadosPagamentoDto;
 import com.br.marketplace.service.PagamentoService;
@@ -30,9 +31,9 @@ public class PagamentoController {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarDadosDetalhadosPagamentoDto());
     }
 
-    @PutMapping("cancela/{id}")
-    public ResponseEntity<Void> cancelar(@PathVariable UUID id) {
-        service.cancelar(id);
+    @PutMapping("cancela")
+    public ResponseEntity<Void> cancelar(@Valid @RequestBody CancelarPagamentoDto dto) {
+        service.cancelar(dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
