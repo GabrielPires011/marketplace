@@ -2,7 +2,7 @@ package com.br.marketplace.service;
 
 import com.br.marketplace.dto.CancelarPagamentoDto;
 import com.br.marketplace.dto.CriarPagamentoDto;
-import com.br.marketplace.dto.DadosDetalhadosPagamentoDto;
+import com.br.marketplace.dto.ListarPagamentoDto;
 import com.br.marketplace.exception.ValidacaoException;
 import com.br.marketplace.model.Pagamento;
 import com.br.marketplace.repository.PagamentoRepository;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.beans.Transient;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PagamentoService {
@@ -28,7 +27,7 @@ public class PagamentoService {
         repository.save(new Pagamento(dto));
     }
 
-    public List<DadosDetalhadosPagamentoDto> listarDadosDetalhadosPagamentoDto() {
+    public List<ListarPagamentoDto> listarDadosDetalhadosPagamentoDto() {
         return repository.listarDadosDetalhados();
     }
 
