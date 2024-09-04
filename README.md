@@ -19,8 +19,6 @@ Esta é uma API de marketplace desenvolvida com Java 17 e Spring 3.3.3, utilizan
     - `DATASOURCE_IP` - IP do servidor de banco de dados MySQL
     - `DATASOURCE_USERNAME` - Nome de usuário para o banco de dados MySQL
     - `DATASOURCE_PASSWORD` - Senha para o banco de dados MySQL
-    - `ENCRYPTION_KEY` - Chave de criptografia utilizada pela aplicação
-    - `CHAVE_JWT` - Chave secreta para geração de tokens JWT
     - `ALLOWED_ORIGINS` - Origem permitida para requisições CORS
     - `CIELO_MERCHANT_KEY` - Chave do comerciante para integração com a API da Cielo
     - `CIELO_MERCHANT_ID` - ID do comerciante para integração com a API da Cielo
@@ -30,8 +28,6 @@ Esta é uma API de marketplace desenvolvida com Java 17 e Spring 3.3.3, utilizan
     DATASOURCE_IP=127.0.0.1
     DATASOURCE_USERNAME=root
     DATASOURCE_PASSWORD=sua_senha
-    ENCRYPTION_KEY=sua_chave_de_criptografia
-    CHAVE_JWT=sua_chave_jwt
     ALLOWED_ORIGINS=http://localhost:4200
     CIELO_MERCHANT_KEY=sua_chave_cielo
     CIELO_MERCHANT_ID=seu_id_cielo
