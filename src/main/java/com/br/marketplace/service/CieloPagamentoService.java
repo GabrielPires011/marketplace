@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class CieloPagamentoServico {
+public class CieloPagamentoService {
 
     @Value("${cielo.merchant.key}")
     private String merchantKey;

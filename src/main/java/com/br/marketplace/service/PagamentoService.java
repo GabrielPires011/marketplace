@@ -20,7 +20,7 @@ public class PagamentoService {
     private PagamentoRepository repository;
 
     @Autowired
-    private CieloPagamentoServico cieloPagamentoServico;
+    private CieloPagamentoService cieloPagamentoService;
 
     @Transient
     public void criar(CriarPagamentoDto dto) {
@@ -37,7 +37,7 @@ public class PagamentoService {
         List<Pagamento> vendasPendentes = repository.buscarPagamentosPendentes();
         for (Pagamento pagamento : vendasPendentes) {
 
-            var processarPagamento = cieloPagamentoServico.processarPagamento(pagamento);
+            var processarPagamento = cieloPagamentoService.processarPagamento(pagamento);
 
             if (processarPagamento.equals("4") || processarPagamento.equals("6")) {
                 pagamento.concluir();
