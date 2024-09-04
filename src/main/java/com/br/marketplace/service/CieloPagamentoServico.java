@@ -2,6 +2,7 @@ package com.br.marketplace.service;
 
 import com.br.marketplace.exception.ValidacaoException;
 import com.br.marketplace.model.Pagamento;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,9 @@ public class CieloPagamentoServico {
     @Value("${cielo.merchant.id}")
     private String merchantId;
 
+    @Autowired
+    private CieloLogService cieloLogService;
+
     public String processarPagamento(Pagamento pagamento) {
         RestTemplate restTemplate = new RestTemplate();
         Map<String, Object> paymentRequest = criarPaymentRequest(pagamento);
@@ -40,18 +44,25 @@ public class CieloPagamentoServico {
             Map<String, Object> response = responseEntity.getBody();
 
             if (response == null || response.get("Payment") == null) {
-                throw new ValidacaoException("Erro ao processar pagamento com a Cielo: resposta inválida.");
+                String erro = "Erro ao processar pagamento com a Cielo: resposta inválida.";
+                cieloLogService.salvarErro(erro, pagamento, responseEntity);
+                throw new ValidacaoException(erro);
             }
 
             Map<String, Object> paymentResponse = (Map<String, Object>) response.get("Payment");
 
             if (paymentResponse == null || paymentResponse.get("ReturnCode") == null) {
+                String erro = "Código de retorno não encontrado na resposta da Cielo.";
+                cieloLogService.salvarErro(erro, pagamento, responseEntity);
                 throw new ValidacaoException("Código de retorno não encontrado na resposta da Cielo.");
             }
 
+            cieloLogService.salvar(paymentResponse, responseEntity, pagamento);
             return String.valueOf(paymentResponse.get("ReturnCode"));
         } catch (Exception e) {
-            throw new ValidacaoException("Erro ao processar pagamento com a Cielo.");
+            var erro = "Erro ao processar pagamento com a Cielo.";
+            cieloLogService.salvarErro(erro, pagamento, null);
+            throw new ValidacaoException(erro);
         }
     }
 
