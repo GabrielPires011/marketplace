@@ -54,7 +54,7 @@ SecurityConfig {
                 .securityContext(securityContext -> securityContext.requireExplicitSave(false))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/autenticacao/**").permitAll()
+                        .requestMatchers("/autenticacao/**", "/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

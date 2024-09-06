@@ -27,7 +27,7 @@ public class PagamentoService {
         repository.save(new Pagamento(dto));
     }
 
-    public List<ListarPagamentoDto> listarDadosDetalhadosPagamentoDto() {
+    public List<ListarPagamentoDto> listarPagamentoDto() {
         return repository.listarDadosDetalhados();
     }
 
@@ -53,7 +53,7 @@ public class PagamentoService {
     public void cancelar(CancelarPagamentoDto dto) {
         var pagamento = repository.findById(dto.id())
                 .orElseThrow(() -> new ValidacaoException(
-                        "Pagamento não encontrada."));
+                        "Pagamento não encontrado."));
 
         pagamento.cancelar();
         repository.save(pagamento);

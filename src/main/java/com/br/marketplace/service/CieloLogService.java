@@ -32,8 +32,8 @@ public class CieloLogService {
         repository.save(cieloLog);
     }
 
-    public List<ListarCieloLogDto> listarDadosDetalhadosCieloLogDto() {
-        return repository.listarDadosDetalhadosCieloLogDto();
+    public List<ListarCieloLogDto> listarCieloLogDto() {
+        return repository.listarCieloLogDto();
     }
 
     public DadosDetalhadosCieloLogDto buscarDadosDetalhadosCieloLogDto(UUID id) {

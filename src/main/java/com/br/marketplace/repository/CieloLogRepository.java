@@ -16,7 +16,7 @@ public interface CieloLogRepository extends JpaRepository<CieloLog, UUID> {
             " l.statusResposta, l.codigoResposta, p.id)" +
             " from CieloLog l " +
             " inner join Pagamento p on p.id = l.pagamento.id")
-    List<ListarCieloLogDto> listarDadosDetalhadosCieloLogDto();
+    List<ListarCieloLogDto> listarCieloLogDto();
 
     @Query("select new com.br.marketplace.dto.DadosDetalhadosCieloLogDto(l.id, l.dataOperacao, l.mensagemResposta," +
             " l.statusResposta, l.codigoResposta, l.mensagemErro, l.corpoResposta, p.id)" +
