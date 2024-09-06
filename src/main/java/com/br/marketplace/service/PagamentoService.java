@@ -6,11 +6,11 @@ import com.br.marketplace.dto.ListarPagamentoDto;
 import com.br.marketplace.exception.ValidacaoException;
 import com.br.marketplace.model.Pagamento;
 import com.br.marketplace.repository.PagamentoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
 import java.util.List;
 
 @Service
@@ -22,7 +22,7 @@ public class PagamentoService {
     @Autowired
     private CieloPagamentoService cieloPagamentoService;
 
-    @Transient
+    @Transactional
     public void criar(CriarPagamentoDto dto) {
         repository.save(new Pagamento(dto));
     }
@@ -32,7 +32,7 @@ public class PagamentoService {
     }
 
     @Async
-    @Transient
+    @Transactional
     public void processarPagamentosPendentes() {
         List<Pagamento> vendasPendentes = repository.buscarPagamentosPendentes();
         for (Pagamento pagamento : vendasPendentes) {
@@ -49,7 +49,7 @@ public class PagamentoService {
         }
     }
 
-    @Transient
+    @Transactional
     public void cancelar(CancelarPagamentoDto dto) {
         var pagamento = repository.findById(dto.id())
                 .orElseThrow(() -> new ValidacaoException(
