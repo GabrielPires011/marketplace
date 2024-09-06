@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: marketplace
+    ports:
+      - "3306:3306"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      DATASOURCE_IP: mysql
+      DATASOURCE_USERNAME: root
+      DATASOURCE_PASSWORD: root
+      ALLOWED_ORIGINS: http://localhost:4200
+      CIELO_MERCHANT_KEY: ${CIELO_MERCHANT_KEY}
+      CIELO_MERCHANT_ID: ${CIELO_MERCHANT_ID}
+    entrypoint: ["/bin/sh", "-c", "until nc -z mysql 3306; do echo 'Waiting for MySQL...'; sleep 2; done; exec java -jar app.jar"]
