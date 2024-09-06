@@ -20,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +28,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PagamentoServiceTest {
@@ -36,9 +39,10 @@ class PagamentoServiceTest {
     @Mock
     private PagamentoRepository pagamentoRepository;
     @Mock
-    private CieloLogService cieloLogService;
+    private CieloPagamentoService cieloPagamentoService;
     private CriarPagamentoDto dto = new CriarPagamentoDto(BigDecimal.valueOf(50), "Teste", FormaPagamento.CREDITO, new CriarCartaoDto("Teste",
-            "5400145586317057", "08/2026", "123"));;
+            "5400145586317057", "08/2026", "123"));
+    private final CancelarPagamentoDto dtoCancelar = new CancelarPagamentoDto(UUID.randomUUID());
     @Captor
     private ArgumentCaptor<Pagamento> pagamentoCaptor;
 
@@ -68,7 +72,6 @@ class PagamentoServiceTest {
 
     @Test
     void deveriaCancelar() {
-        var dtoCancelar = new CancelarPagamentoDto(UUID.randomUUID());
         var pagamento = new Pagamento(dto);
 
         given(pagamentoRepository.findById(any())).willReturn(Optional.of(pagamento));
@@ -85,10 +88,27 @@ class PagamentoServiceTest {
 
     @Test
     void naoDeveriaCancelarPorCausaQueNaoExiste() {
-        var dto = new CancelarPagamentoDto(UUID.randomUUID());
-
         given(pagamentoRepository.findById(any())).willReturn(Optional.empty());
 
-        assertThrows(ValidacaoException.class, () -> pagamentoService.cancelar(dto));
+        assertThrows(ValidacaoException.class, () -> pagamentoService.cancelar(dtoCancelar));
+    }
+
+    @Test
+    void deveriaProcessarPagamentosPendentes() {
+        var pagamento1 = new Pagamento();
+        var pagamento2 = new Pagamento();
+        var pagamentosPendentes = List.of(pagamento1, pagamento2);
+
+        given(pagamentoRepository.buscarPagamentosPendentes()).willReturn(pagamentosPendentes);
+        given(cieloPagamentoService.processarPagamento(pagamento1)).willReturn("4");
+        given(cieloPagamentoService.processarPagamento(pagamento2)).willReturn("5");
+
+        pagamentoService.processarPagamentosPendentes();
+
+        verify(cieloPagamentoService, times(2)).processarPagamento(any(Pagamento.class));
+        verify(pagamentoRepository, times(2)).save(any(Pagamento.class));
+
+        assertEquals(Status.CONCLUIDO, pagamento1.getStatus());
+        assertEquals(Status.RECUSADO, pagamento2.getStatus());
     }
 }
