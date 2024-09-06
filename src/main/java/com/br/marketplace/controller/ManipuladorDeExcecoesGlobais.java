@@ -1,4 +1,5 @@
 package com.br.marketplace.controller;
+import com.br.marketplace.exception.ValidacaoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,5 +30,10 @@ public class ManipuladorDeExcecoesGlobais {
     public ResponseEntity<String> tratarExcecoesViolacaoRestricoes(ConstraintViolationException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
-}
 
+    @ExceptionHandler(ValidacaoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> tratarValidacaoException(ValidacaoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+}

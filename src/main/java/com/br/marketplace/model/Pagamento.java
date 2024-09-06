@@ -50,6 +50,10 @@ public class Pagamento {
         return formaPagamento;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public void concluir() {
         this.status = Status.CONCLUIDO;
     }
