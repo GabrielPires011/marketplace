@@ -18,7 +18,7 @@ services:
     depends_on:
       - mysql
     environment:
-      DATASOURCE_IP: mysql
+      DATASOURCE_URL: mysql/marketplace?createDatabaseIfNotExist=true
       DATASOURCE_USERNAME: root
       DATASOURCE_PASSWORD: root
       ALLOWED_ORIGINS: http://localhost:4200

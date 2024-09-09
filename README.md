@@ -16,7 +16,7 @@ Esta é uma API de marketplace desenvolvida com Java 17 e Spring 3.3.3, utilizan
 
 3. Configure as variáveis de ambiente necessárias diretamente no sistema. As variáveis são:
 
-    - `DATASOURCE_IP` - IP do servidor de banco de dados MySQL
+    - `DATASOURCE_URL` - URL do servidor de banco de dados MySQL
     - `DATASOURCE_USERNAME` - Nome de usuário para o banco de dados MySQL
     - `DATASOURCE_PASSWORD` - Senha para o banco de dados MySQL
     - `ALLOWED_ORIGINS` - Origem permitida para requisições CORS
@@ -25,7 +25,7 @@ Esta é uma API de marketplace desenvolvida com Java 17 e Spring 3.3.3, utilizan
 
    Exemplo de configuração:
     ```env
-    DATASOURCE_IP=127.0.0.1
+    DATASOURCE_URL=localhost/marketplace
     DATASOURCE_USERNAME=root
     DATASOURCE_PASSWORD=sua_senha
     ALLOWED_ORIGINS=http://localhost:4200
