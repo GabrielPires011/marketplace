@@ -46,7 +46,7 @@ jobs:
         run: mvn verify
 
     env:
-      DATASOURCE_IP: localhost/marketplace?createDatabaseIfNotExist=true
+      DATASOURCE_IP: localhost/marketplace
       DATASOURCE_USERNAME: root
       DATASOURCE_PASSWORD: root
       ALLOWED_ORIGINS: http://localhost:4200
