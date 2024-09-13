@@ -21,7 +21,6 @@ services:
       DATASOURCE_URL: mysql/marketplace?createDatabaseIfNotExist=true
       DATASOURCE_USERNAME: root
       DATASOURCE_PASSWORD: root
-      ALLOWED_ORIGINS: http://localhost:4200
       CIELO_MERCHANT_KEY: ${CIELO_MERCHANT_KEY}
       CIELO_MERCHANT_ID: ${CIELO_MERCHANT_ID}
     entrypoint: ["/bin/sh", "-c", "until nc -z mysql 3306; do echo 'Waiting for MySQL...'; sleep 2; done; exec java -jar app.jar"]

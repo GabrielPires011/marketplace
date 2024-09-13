@@ -28,7 +28,6 @@ Esta é uma API de marketplace desenvolvida com Java 17 e Spring 3.3.3, utilizan
     DATASOURCE_URL=localhost/marketplace
     DATASOURCE_USERNAME=root
     DATASOURCE_PASSWORD=sua_senha
-    ALLOWED_ORIGINS=http://localhost:4200
     CIELO_MERCHANT_KEY=sua_chave_cielo
     CIELO_MERCHANT_ID=seu_id_cielo
     ```
