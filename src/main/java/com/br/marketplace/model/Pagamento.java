@@ -21,6 +21,7 @@ public class Pagamento {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cartao_id")
     private Cartao cartao;
+    private UUID pedidoId;
     @Enumerated(EnumType.STRING)
     private FormaPagamento formaPagamento;
 
@@ -44,6 +45,10 @@ public class Pagamento {
 
     public Cartao getCartao() {
         return cartao;
+    }
+
+    public UUID getPedidoId() {
+        return pedidoId;
     }
 
     public FormaPagamento getFormaPagamento() {

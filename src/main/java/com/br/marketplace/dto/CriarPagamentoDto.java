@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public record CriarPagamentoDto(
         @NotNull(message = "O valor não pode ser nulo.")
@@ -19,5 +20,7 @@ public record CriarPagamentoDto(
         FormaPagamento formaDePagamento,
 
         @Valid
-        CriarCartaoDto criarCartaoDto) {
+        CriarCartaoDto criarCartaoDto,
+
+        UUID pedidoId) {
 }
